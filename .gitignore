@@ -1,0 +1,8 @@
+server.log
+server.err.log
+backend.log
+backend.err.log
+preview-*.png
+node_modules/
+.env
+npm-debug.log*
