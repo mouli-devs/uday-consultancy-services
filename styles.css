@@ -560,13 +560,14 @@ h3 {
   transform: translateY(0);
 }
 
-[data-animate] {
+.js-animate [data-animate] {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 600ms ease, transform 600ms ease;
 }
 
-[data-animate].visible {
+[data-animate],
+.js-animate [data-animate].visible {
   opacity: 1;
   transform: translateY(0);
 }
