@@ -1,0 +1,11 @@
+node_modules/
+.agents/
+.codex/
+.env
+*.log
+*.err.log
+preview-*.png
+uploads/*
+!uploads/.gitkeep
+data/uploads/*
+!data/uploads/.gitkeep
