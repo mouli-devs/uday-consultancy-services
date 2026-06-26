@@ -1,75 +1,74 @@
-# Uday Consultancy Services Backend Setup
+# Uday Consultancy Services Free Hosting Setup
 
-## Local Run
+This version is prepared for Netlify Free + Supabase Free.
 
-```powershell
-npm install
-npm start
+## What Hosts What
+
+- Netlify hosts the website.
+- Netlify Functions handle `/api/*`.
+- Supabase stores public updates and uploaded photos/videos.
+- Gmail SMTP can send enquiry emails.
+- WhatsApp uses a visitor-ready WhatsApp compose link.
+
+## Supabase SQL
+
+Run this in Supabase SQL Editor:
+
+```sql
+create extension if not exists pgcrypto;
+
+create table if not exists public.updates (
+  id uuid primary key default gen_random_uuid(),
+  type text not null check (type in ('text', 'photo', 'video')),
+  title text not null,
+  body text,
+  media_url text,
+  media_type text,
+  created_at timestamptz not null default now()
+);
+
+alter table public.updates enable row level security;
+
+create policy "Public can read updates"
+on public.updates
+for select
+using (true);
 ```
 
-Open:
+## Supabase Storage
+
+Create a public bucket:
 
 ```text
-http://127.0.0.1:4174/
+updates-media
 ```
 
-## Render Deploy
+## Netlify Deploy
 
-Create a **Web Service** on Render, not a Static Site.
+Import this GitHub repo into Netlify as a normal site.
 
 Use:
 
 ```text
-Build Command: npm install
-Start Command: npm start
+Build command: npm install
+Publish directory: public
 ```
 
-For weekly photo/video updates, use a paid Render Web Service with a Render Disk or another persistent storage provider.
-Without persistent storage, uploaded updates can disappear after a Render redeploy or restart.
+The `netlify.toml` file routes `/api/*` to Netlify Functions.
 
-Recommended Render settings:
+## Netlify Environment Variables
 
-```text
-Service Name: ucs-mitra
-Instance Type: Starter
-```
-
-Recommended Render Disk:
+Add these in Netlify site settings:
 
 ```text
-Mount Path: /opt/render/project/src/data
-Size: 1 GB or more
-```
-
-Admin posting page:
-
-```text
-https://your-render-domain/admin-updates.html
-```
-
-Public updates page:
-
-```text
-https://your-render-domain/updates.html
-```
-
-## Required Environment Variables
-
-Basic contact targets:
-
-```text
+ADMIN_PASSWORD=5468
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-secret-key
+SUPABASE_BUCKET=updates-media
+UPDATE_UPLOAD_LIMIT_MB=8
 PRIMARY_EMAIL=gandlasandya@gmail.com
 ALTERNATE_EMAIL=ucsmitra@gmail.com
 WHATSAPP_NUMBER=919912463921
-ADMIN_PASSWORD=5468
-DATA_DIR=/opt/render/project/src/data
-UPLOAD_DIR=/opt/render/project/src/data/uploads
-UPDATE_UPLOAD_LIMIT_MB=80
-```
-
-Email auto-send through Gmail SMTP:
-
-```text
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
 SMTP_SECURE=true
@@ -78,13 +77,24 @@ SMTP_PASS=your-gmail-app-password
 MAIL_FROM=Uday Consultancy Services <your-sender-gmail@gmail.com>
 ```
 
-WhatsApp auto-send through Twilio WhatsApp:
+Do not put `SUPABASE_SERVICE_ROLE_KEY` in GitHub or public frontend code.
+
+## Admin Pages
+
+Public updates page:
 
 ```text
-TWILIO_ACCOUNT_SID=
-TWILIO_AUTH_TOKEN=
-TWILIO_WHATSAPP_FROM=+14155238886
-WHATSAPP_TO=+919912463921
+https://your-netlify-domain.netlify.app/updates.html
 ```
 
-WhatsApp auto-send requires an approved WhatsApp API sender. Without it, the website still prepares a WhatsApp message link for the visitor to send manually.
+Hidden admin page:
+
+```text
+https://your-netlify-domain.netlify.app/admin-updates.html
+```
+
+Normal viewers do not see the admin page. The invisible top-right trigger on the website still opens it after four clicks. Admin password is controlled by `ADMIN_PASSWORD`.
+
+## Free Hosting Note
+
+Netlify Functions are not ideal for very large videos. Keep uploaded videos short/compressed. Photos and small video clips are the safe free-tier use case.

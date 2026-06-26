@@ -9,6 +9,7 @@ require("dotenv").config();
 const app = express();
 const port = Number(process.env.PORT) || 4174;
 const rootDir = __dirname;
+const publicDir = path.join(rootDir, "public");
 
 const primaryEmail = process.env.PRIMARY_EMAIL || "gandlasandya@gmail.com";
 const alternateEmail = process.env.ALTERNATE_EMAIL || "ucsmitra@gmail.com";
@@ -158,38 +159,38 @@ app.delete("/api/admin/updates/:id", requireAdmin, (req, res) => {
 });
 
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(rootDir, "index.html"));
+  res.sendFile(path.join(publicDir, "index.html"));
 });
 
 app.get("/index.html", (_req, res) => {
-  res.sendFile(path.join(rootDir, "index.html"));
+  res.sendFile(path.join(publicDir, "index.html"));
 });
 
 app.get(["/updates", "/updates.html"], (_req, res) => {
-  res.sendFile(path.join(rootDir, "updates.html"));
+  res.sendFile(path.join(publicDir, "updates.html"));
 });
 
 app.get(["/admin-updates", "/admin-updates.html"], (_req, res) => {
-  res.sendFile(path.join(rootDir, "admin-updates.html"));
+  res.sendFile(path.join(publicDir, "admin-updates.html"));
 });
 
 app.get("/styles.css", (_req, res) => {
-  res.type("text/css").sendFile(path.join(rootDir, "styles.css"));
+  res.type("text/css").sendFile(path.join(publicDir, "styles.css"));
 });
 
 app.get("/script.js", (_req, res) => {
-  res.type("application/javascript").sendFile(path.join(rootDir, "script.js"));
+  res.type("application/javascript").sendFile(path.join(publicDir, "script.js"));
 });
 
 app.get("/updates.js", (_req, res) => {
-  res.type("application/javascript").sendFile(path.join(rootDir, "updates.js"));
+  res.type("application/javascript").sendFile(path.join(publicDir, "updates.js"));
 });
 
 app.get("/admin-updates.js", (_req, res) => {
-  res.type("application/javascript").sendFile(path.join(rootDir, "admin-updates.js"));
+  res.type("application/javascript").sendFile(path.join(publicDir, "admin-updates.js"));
 });
 
-app.use("/assets", express.static(path.join(rootDir, "assets"), {
+app.use("/assets", express.static(path.join(publicDir, "assets"), {
   immutable: true,
   maxAge: "1d",
 }));
