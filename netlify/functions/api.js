@@ -35,6 +35,9 @@ exports.handler = async (event) => {
 };
 
 function getRoute(event) {
+  const routed = event.queryStringParameters?.route;
+  if (routed) return `/${routed.replace(/^\/+/, "")}`;
+
   const pathValue = event.path || "";
   return pathValue
     .replace(/^\/\.netlify\/functions\/api/, "")
