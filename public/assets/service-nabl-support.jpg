@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#12386b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#061528;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c89b2c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8c56d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" fill="url(#bg)"/>
+  <g transform="translate(200, 125)">
+    <path d="M-60,-50 L60,-50 L80,0 L60,50 L-60,50 L-80,0 Z" fill="none" stroke="url(#accent)" stroke-width="3"/>
+    <path d="M-40,-30 L40,-30 L50,0 L40,30 L-40,30 L-50,0 Z" fill="url(#accent)" opacity="0.2"/>
+    <text x="0" y="10" text-anchor="middle" font-family="Arial" font-size="28" font-weight="bold" fill="url(#accent)">★</text>
+  </g>
+  <text x="200" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#c89b2c" font-weight="600">NABL Accreditation Support</text>
+</svg>

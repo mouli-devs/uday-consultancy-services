@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Post Updates | Uday Consultancy Services</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="top-strip">
+      <div class="shell top-strip-inner">
+        <span>Private updates dashboard</span>
+        <a href="updates.html">View public updates</a>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html#home" aria-label="Uday Consultancy Services home">
+          <img class="brand-logo" src="assets/uday-logo.jpg" alt="Uday Consultancy Services">
+        </a>
+        <nav class="main-nav admin-nav" aria-label="Admin navigation">
+          <a href="index.html#home">Website</a>
+          <a href="updates.html">Updates</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="admin-hero section-pad">
+        <div class="shell">
+          <p class="section-label">Client Only</p>
+          <h1>Post Website Updates</h1>
+          <p>
+            Add text, photo or video updates from your phone without editing the website.
+          </p>
+        </div>
+      </section>
+
+      <section class="admin-section section-pad">
+        <div class="shell admin-layout">
+          <form class="admin-panel" data-login-form>
+            <h2>Login</h2>
+            <label>
+              Admin password
+              <input type="password" name="password" autocomplete="current-password" required>
+            </label>
+            <button class="btn primary" type="submit">Unlock Posting</button>
+          </form>
+
+          <form class="admin-panel admin-form" data-update-form hidden>
+            <h2>New Update</h2>
+            <label>
+              Update type
+              <select name="type" data-update-type required>
+                <option value="text">Text update</option>
+                <option value="photo">Photo update</option>
+                <option value="video">Video update</option>
+              </select>
+            </label>
+            <label>
+              Title
+              <input type="text" name="title" maxlength="120" required>
+            </label>
+            <label>
+              Update text
+              <textarea name="body" rows="5" maxlength="2200" placeholder="Write the update here..."></textarea>
+            </label>
+            <label>
+              Photo or video
+              <input type="file" name="media" accept="image/*,video/*" data-media-input>
+            </label>
+            <button class="btn primary" type="submit">Post Update</button>
+            <button class="btn secondary" type="button" data-logout>Logout</button>
+          </form>
+
+          <div class="admin-panel" data-admin-status>
+            <h2>Status</h2>
+            <p>Login to post new website updates.</p>
+          </div>
+        </div>
+
+        <div class="shell">
+          <div class="admin-panel admin-list-panel" data-admin-list-panel hidden>
+            <h2>Published Updates</h2>
+            <div class="admin-updates-list" data-admin-updates-list></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="admin-updates.js"></script>
+  </body>
+</html>
