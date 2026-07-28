@@ -373,7 +373,7 @@ h3 {
 
 .service-image {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2 / 1;
   overflow: hidden;
   background: var(--soft);
 }
